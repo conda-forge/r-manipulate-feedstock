@@ -1,5 +1,4 @@
 {% set version = '1.0.1' %}
-
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -8,31 +7,30 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: manipulate_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/manipulate_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/manipulate/manipulate_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/manipulate_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/manipulate/manipulate_{{ version }}.tar.gz
   sha256: 7e7e829252c3b3c1f768bb76a5d952f0e98f95c843b5f58da325deeb1ab693ce
 
 build:
+  merge_build_host: True  # [win]
+  number: 1001
   noarch: generic
-  number: 1000
-  skip: true  # [win32]
-
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
+    - {{posix}}zip               # [win]
+  host:
     - r-base
-
   run:
     - r-base
 
 test:
   commands:
-    - $R -e "library('manipulate')"  # [not win]
+    - $R -e "library('manipulate')"           # [not win]
     - "\"%R%\" -e \"library('manipulate')\""  # [win]
 
 about:
@@ -44,8 +42,26 @@ about:
     is changed using its corresponding control the expression is automatically re-executed
     and the plot is redrawn.
   license_family: GPL2
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
 
 extra:
   recipe-maintainers:
-    - johanneskoester
-    - bgruening
+    - conda-forge/r
+
+# Package: manipulate
+# Type: Package
+# Title: Interactive Plots for RStudio
+# Version: 1.0.1
+# Date: 2014-12-23
+# Authors@R: c( person("JJ", "Allaire", role = c("aut", "cre"), comment = "R interface", email = "jj@rstudio.com"), person(family = "RStudio", role = "cph") )
+# Maintainer: JJ Allaire <jj@rstudio.com>
+# Description: Interactive plotting functions for use within RStudio. The manipulate function accepts a plotting expression and a set of controls (e.g. slider, picker, checkbox, or button) which are used to dynamically change values within the expression. When a value is changed using its corresponding control the expression is automatically re-executed and the plot is redrawn.
+# Depends: R (>= 2.11.1)
+# SystemRequirements: RStudio - http://www.rstudio.com/products/rstudio/
+# License: GPL-2
+# LazyLoad: yes
+# Packaged: 2014-12-23 18:00:41 UTC; jjallaire
+# Author: JJ Allaire [aut, cre] (R interface), RStudio [cph]
+# NeedsCompilation: no
+# Repository: CRAN
+# Date/Publication: 2014-12-24 01:18:44
