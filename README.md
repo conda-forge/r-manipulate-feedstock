@@ -1,11 +1,11 @@
-About r-manipulate
-==================
+About r-manipulate-feedstock
+============================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-manipulate-feedstock/blob/main/LICENSE.txt)
 
 Home: https://CRAN.R-project.org/package=manipulate
 
 Package license: GPL-2
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-manipulate-feedstock/blob/main/LICENSE.txt)
 
 Summary: Interactive plotting functions for use within RStudio. The manipulate function accepts a plotting expression and a set of controls (e.g. slider, picker, checkbox, or button) which are used to dynamically change values within the expression. When a value is changed using its corresponding control the expression is automatically re-executed and the plot is redrawn.
 
